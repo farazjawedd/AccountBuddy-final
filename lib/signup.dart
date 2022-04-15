@@ -53,16 +53,40 @@ class SignupPage extends StatelessWidget {
   }
 }
 
-class rightSide extends StatelessWidget {
+class rightSide extends StatefulWidget {
   const rightSide({Key? key}) : super(key: key);
+
+  @override
+  State<rightSide> createState() => _rightSideState();
+}
+
+class _rightSideState extends State<rightSide> {
+  final fullNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final businessNameController = TextEditingController();
+  var fullName = "";
+  var email = "";
+  var password = "";
+  var confirmPassword = "";
+  var businessName = "";
 
   @override
   Widget build(BuildContext context) {
     var textstyle = TextStyle(color: Colors.white, fontSize: 25);
     var _size = MediaQuery.of(context).size;
 
-    Widget input(toWrite) {
+    Widget input(toWrite, controllerParameter) {
+      var ob;
+      if (toWrite == "Password" || toWrite == "Confirm Password") {
+        ob = true;
+      } else {
+        ob = false;
+      }
       return TextField(
+        controller: controllerParameter,
+        obscureText: ob,
         decoration: InputDecoration(
             labelText: toWrite,
             fillColor: Colors.white,
@@ -95,11 +119,11 @@ class rightSide extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                input("Full Name"),
-                input("Email Address"),
-                input("Password"),
-                input("Confirm Password"),
-                input("Business Name"),
+                input("Full Name", fullNameController),
+                input("Email Address", emailController),
+                input("Password", passwordController),
+                input("Confirm Password", confirmPasswordController),
+                input("Business Name", businessNameController),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -113,10 +137,18 @@ class rightSide extends StatelessWidget {
           Container(
             width: 200,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                fullName = fullNameController.text;
+                email = emailController.text;
+                password = passwordController.text;
+                confirmPassword = confirmPasswordController.text;
+                businessName = businessNameController.text;
+                setState(() {});
+              },
               child: Text("Sign Up"),
               style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 52, 133, 55)),
+                  primary: Color.fromARGB(255, 52, 133, 55),
+                  shape: StadiumBorder()),
             ),
           ),
           SizedBox(
@@ -125,11 +157,14 @@ class rightSide extends StatelessWidget {
           Container(
             width: 200,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/login");
+              },
               child: Text("or Login"),
               style: ElevatedButton.styleFrom(
                   primary: Color.fromARGB(255, 44, 44, 44),
-                  onPrimary: Color.fromARGB(255, 52, 133, 55)),
+                  onPrimary: Color.fromARGB(255, 52, 133, 55),
+                  shape: StadiumBorder()),
             ),
           ),
         ],
