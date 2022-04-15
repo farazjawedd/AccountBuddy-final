@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
+import 'package:accountbuddy/screens/login_screen.dart';
 import 'Backend/Authentication.dart';
 
 void main() async {
@@ -13,6 +13,7 @@ void main() async {
   runApp((MyApp()));
 }
 
+/*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -37,13 +38,17 @@ class Tester extends StatefulWidget {
 
 class _TesterState extends State<Tester> {
   final _formKey = GlobalKey<FormState>();
+  String full_name = "";
   String email = "";
   String password = "";
+  String confirm_password = "";
+  String business_name = "";
 
   void validate() async {
     if (_formKey.currentState!.validate()) {
       String message =
           await Authentication().signUpWithEmailAndPassword(email, password);
+          await firebase.init
       print(message);
     }
   }
@@ -60,7 +65,15 @@ class _TesterState extends State<Tester> {
                 child: Column(children: <Widget>[
                   TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(labelText: "Name"),
+                    decoration: InputDecoration(labelText: "Full Name"),
+                    //validator: (val) => emailValidator(val!, false),
+                    onChanged: (val) {
+                      setState(() => full_name = val);
+                    },
+                  ),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(labelText: "Email"),
                     //validator: (val) => emailValidator(val!, false),
                     onChanged: (val) {
                       setState(() => email = val);
@@ -74,10 +87,32 @@ class _TesterState extends State<Tester> {
                       setState(() => password = val);
                     },
                   ),
-                  ElevatedButton(
-                    onPressed: () => validate(),
-                    child: Text(
-                      'Sign Up',
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(labelText: "Confirm Password"),
+                    //validator: (val) => emailValidator(val!, false),
+                    onChanged: (val) {
+                      setState(() => confirm_password = val);
+                    },
+                  ),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(labelText: "Business Name"),
+                    //validator: (val) => emailValidator(val!, false),
+                    onChanged: (val) {
+                      setState(() => business_name = val);
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () => validate(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Sign Up',
+                        ),
+                      ),
                     ),
                   )
                 ]),
@@ -90,12 +125,18 @@ class _TesterState extends State<Tester> {
 
 
 
-
-
-/*child: const Text(
-          'Welcome to AccountBuddy',
-          textAlign: TextAlign.left,
-          style: TextStyle(decoration: TextDecoration.none, fontSize: 20),
-        ),
-        padding: const EdgeInsets.only(top: 20.0));
- */ 
+*/
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Email And Password Login',
+      theme: ThemeData(
+        primarySwatch: Colors.yellow,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: LoginScreen(),
+    );
+  }
+}
