@@ -88,7 +88,11 @@ class _SideCOntainerState extends State<SideCOntainer> {
               SizedBox(height: 10.0,),
               mainHeading("Employee", size, Icons.payments_outlined),
               SizedBox(height: 10.0,),
-              otherHeading("Create new account", size, "icon"),
+              InkWell(
+                  onTap: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Employee()));
+                  },
+                  child: otherHeading("Create new account", size, "icon")),
               otherHeading("List of employees", size, "icon"),
             ],
           ),
