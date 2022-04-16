@@ -56,8 +56,11 @@ class _SideCOntainerState extends State<SideCOntainer> {
               mainHeading("Products", size, Icons.margin),
               SizedBox(height: 10.0,),
               otherHeading("Create new product", size, "icon"),
-              otherHeading("List of products", size, "icon"),
-              otherHeading("List of products", size, "icon"),
+              InkWell(
+                  onTap: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ProductList()));
+                  },
+                  child: otherHeading("List of products", size, "icon")),
               otherHeading("Issued Stocks", size, "icon"),
               otherHeading("Request Stocks", size, "icon"),
               otherHeading("Stocks Transfer Details", size, "icon"),
