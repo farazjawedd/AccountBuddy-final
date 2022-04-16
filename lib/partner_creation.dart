@@ -39,6 +39,7 @@ class _RightSidePartnerCreationState extends State<RightSidePartnerCreation> {
   var address = "";
   var phoneNumber = "";
   var beginningBalance = "";
+  bool? cValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +78,45 @@ class _RightSidePartnerCreationState extends State<RightSidePartnerCreation> {
           Container(
               width: 400, child: input('Phone Number', phoneNumberController)),
           SizedBox(
-            height: 100,
+            height: 20,
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 320,
+              ),
+              Theme(
+                data: ThemeData(unselectedWidgetColor: Colors.white),
+                child: Checkbox(
+                  value: cValue,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      cValue = value;
+                    });
+                  },
+                ),
+              ),
+              Text(
+                "Do you also purchase goods from this party?",
+                style: whiteStyle(17),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 40,
           ),
           Container(
             width: 250,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                name = nameController.text;
+                address = addressController.text;
+                beginningBalance = beginningBalanceController.text;
+                phoneNumber = phoneNumberController.text;
+                setState(() {});
+                print(name);
+              },
               child: Text(" Save"),
               style: ElevatedButton.styleFrom(
                   primary: Color.fromARGB(255, 52, 133, 55),
