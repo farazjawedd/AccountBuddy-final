@@ -51,7 +51,11 @@ class _SideCOntainerState extends State<SideCOntainer> {
               mainHeading("Partner", size, Icons.person),
               SizedBox(height: 10.0,),
               otherHeading("Create new partner", size, "icon"),
-              otherHeading("List of partners", size, "icon"),
+              InkWell(
+                  onTap: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>PartnerList()));
+                  },
+                  child: otherHeading("List of partners", size, "icon")),
               SizedBox(height: 10.0,),
               mainHeading("Products", size, Icons.margin),
               SizedBox(height: 10.0,),
