@@ -1,6 +1,6 @@
 # accountbuddy
 
-A new Flutter project.
+A project which assists small scale distribution business owners in easily carrying out day to day activities of their business
 
 ## Getting Started
 
