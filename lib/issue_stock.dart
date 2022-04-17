@@ -1,48 +1,41 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:ui';
-import 'package:accountbuddy/issue_stock.dart';
-import 'package:intl/intl.dart';
+// ignore_for_file: deprecated_member_use, prefer_const_constructors
 
 import 'package:accountbuddy/partner_creation.dart';
+import 'package:accountbuddy/request_stock.dart';
 import 'package:accountbuddy/side_container.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-getCurrentDate() {
-  return DateFormat.yMMMMd('en_US').format(DateTime.now());
-}
-
-class RequestStock extends StatelessWidget {
-  const RequestStock({Key? key}) : super(key: key);
+class IssueStock extends StatelessWidget {
+  const IssueStock({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Request Stock"),
+        title: Text("Issue Stock"),
       ),
       body: Row(
-        children: [SideCOntainer(), RightSideRequestStock()],
+        children: [SideCOntainer(), RightSideIssueStock()],
       ),
     );
   }
 }
 
-class RightSideRequestStock extends StatefulWidget {
-  const RightSideRequestStock({Key? key}) : super(key: key);
+class RightSideIssueStock extends StatefulWidget {
+  RightSideIssueStock({Key? key}) : super(key: key);
+
   @override
-  State<RightSideRequestStock> createState() => _RightSideRequestStockState();
+  State<RightSideIssueStock> createState() => _RightSideIssueStockState();
 }
 
-class _RightSideRequestStockState extends State<RightSideRequestStock> {
+class _RightSideIssueStockState extends State<RightSideIssueStock> {
   var requests = <stockTransfer>[];
   var defaultStyle = TextStyle(color: Colors.white);
-  var employees = ["qaim", "ali", "wassup beijing"];
+  var employees = ["Employee 1", "Employee 2", "Employee 3"];
   String? employeeSelected;
-  var products = ["p1", "p2", "p3"];
+  var products = ["Product 1", "Product 2", "Product 3"];
   String? productSelected;
-  var variants = ["v1", "v2", "v3"];
+  var variants = ["Variant 1 ", "Variant 2", "Variant 3"];
   String? variantSelected;
   final quantityController = TextEditingController();
 
@@ -67,7 +60,7 @@ class _RightSideRequestStockState extends State<RightSideRequestStock> {
                 width: 30,
               ),
               Text(
-                "Request Stock",
+                "Issue stock to Employee",
                 style: whiteStyle(28),
               ),
               SizedBox(
@@ -93,7 +86,7 @@ class _RightSideRequestStockState extends State<RightSideRequestStock> {
                     // Initial Value
                     value: employeeSelected,
                     hint: Text(
-                        "    Select employee from whom to request                           "),
+                        "    Which employee do you want to send stock to?                           "),
 
                     // Down Arrow Icon
                     icon: const Icon(Icons.keyboard_arrow_down),
@@ -204,7 +197,7 @@ class _RightSideRequestStockState extends State<RightSideRequestStock> {
                   controller: quantityController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      labelText: "Quantity Requested",
+                      labelText: "Quantity to Issue",
                       fillColor: Colors.white,
                       filled: true,
                       border: OutlineInputBorder(
@@ -223,8 +216,7 @@ class _RightSideRequestStockState extends State<RightSideRequestStock> {
                     setState(() {
                       if (employeeSelected == null ||
                           productSelected == null ||
-                          variantSelected == null ||
-                          quantityController.text.toString() == "") {
+                          variantSelected == null || quantityController.text.toString() == "") {
                         showAlertDialog(context);
                         return;
                       }
@@ -270,7 +262,7 @@ class _RightSideRequestStockState extends State<RightSideRequestStock> {
                       style: greyStyle(20),
                     ),
                     Text(
-                      "Quantity to request",
+                      "Quantity to issue",
                       style: greyStyle(20),
                     ),
                   ],
@@ -332,7 +324,7 @@ class _RightSideRequestStockState extends State<RightSideRequestStock> {
                   onPressed: () {
                     setState(() {});
                   },
-                  child: Text(" Send Request"),
+                  child: Text(" Issue stock"),
                   style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 52, 133, 55),
                       shape: StadiumBorder()),
@@ -346,66 +338,30 @@ class _RightSideRequestStockState extends State<RightSideRequestStock> {
   }
 }
 
-class stockTransfer {
-  String? employee;
-  int? quantityRequested;
-  String? product;
-  String? productVariant;
+showAlertDialog(BuildContext context) {
+  // Create button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
 
-  stockTransfer(String emp, int quant, String prod, String variant) {
-    employee = emp;
-    quantityRequested = quant;
-    product = prod;
-    productVariant = variant;
-  }
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("There was an error. "),
+    content: Text(
+        "You left a field missing. Please fill in all the fields and try again."),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Container(
-//                   decoration: BoxDecoration(
-//                     color: Colors.white,
-//                     borderRadius: BorderRadius.circular(15.0),
-//                     border: Border.all(style: BorderStyle.solid, width: 0.80),
-//                   ),
-//                   child: DropdownButton(
-//                     // Initial Value
-//                     //value: dropdownvalue,
-//                     hint: Text("Select employee from whom to request"),
-
-//                     // Down Arrow Icon
-//                     icon: const Icon(Icons.keyboard_arrow_down),
-
-//                     // Array list of items
-//                     items: items.map((String items) {
-//                       return DropdownMenuItem(
-//                         value: items,
-//                         child: Text(items),
-//                       );
-//                     }).toList(),
-//                     // After selecting the desired option,it will
-//                     // change button value to selected value
-//                     onChanged: (String? newValue) {
-//                       setState(() {
-//                         dropdownvalue = newValue!;
-//                       });
-//                     },
-//                   ),
-//                 ),
