@@ -115,7 +115,6 @@ class _RightSidePartnerCreationState extends State<RightSidePartnerCreation> {
                 beginningBalance = beginningBalanceController.text;
                 phoneNumber = phoneNumberController.text;
                 setState(() {});
-                print(name);
               },
               child: Text(" Save"),
               style: ElevatedButton.styleFrom(
@@ -141,8 +140,13 @@ class _RightSidePartnerCreationState extends State<RightSidePartnerCreation> {
           )),
     );
   }
+}
 
-  TextStyle whiteStyle(fontsize) {
-    return TextStyle(color: Colors.white, fontSize: fontsize);
-  }
+TextStyle whiteStyle(fontsize) {
+  return TextStyle(color: Colors.white, fontSize: fontsize);
+}
+
+
+TextStyle greyStyle(fontsize) {
+  return TextStyle(color: Color.fromARGB(255, 180, 180, 180), fontSize: fontsize);
 }
